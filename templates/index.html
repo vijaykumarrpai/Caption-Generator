@@ -5,8 +5,8 @@
 	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
 </head>
 <div align="center">
-<form action="/result" method="POST">
-	<body bgcolor="#cfd8dc">
+<form>
+	<body bgcolor="#cfd8dc" id="body">
 		<h1>CAPTION GENERATOR</h1>
 		<br>
 		<br>
@@ -18,9 +18,19 @@
 		<table>
 			<tr>
 				<td><input type="file" name="fileToUpload" id="fileToUpload"></td></div>
-				<td><button class="btn waves-effect waves-light" type="submit" name="action">Submit <i class="material-icons right"></i></button></td>
+				<td><button onclick="showCaption()">Submit</button></td>
 			</tr>
 		</table>
+		<br>
+		<br>
+		<label>Caption is : </label>
+		<p id="display"></p>
+
+		<script type="text/javascript">
+		function showCaption() {
+		document.getElementById("display").innerHTML = "Caption is generated";
+	}
+	</script>
 	</body>
 </form>
 </div>
