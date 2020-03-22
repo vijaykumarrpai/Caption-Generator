@@ -35,8 +35,6 @@ def extract_features(source):
 	# re-structure the model
 	model.layers.pop()
 	model = Model(inputs=model.inputs, outputs=model.layers[-1].output)
-	# summarize
-	# print(model.summary())
 	# extract features from each photo
 	if os.path.isdir(source):
 		features = dict()
@@ -197,31 +195,6 @@ def create_tokenizer(descriptions):
 	tokenizer = Tokenizer()
 	tokenizer.fit_on_texts(lines)
 	return tokenizer
-
-# create sequences of images, input sequences and output words for an image
-# NOTE: This is memory ineffienct. Rather progressively load batch of images
-# def create_sequences(tokenizer, max_length, descriptions, photos):
-# 	X1, X2, y = list(), list(), list()
-# 	# walk through each image identifier
-# 	import ipdb; ipdb.set_trace()
-# 	for key, desc_list in descriptions.items():
-# 		# walk through each description for the image
-# 		for desc in desc_list:
-# 			# encode the sequence
-# 			seq = tokenizer.texts_to_sequences([desc])[0]
-# 			# split one sequence into multiple X,y pairs
-# 			for i in range(1, len(seq)):
-# 				# split into input and output pair
-# 				in_seq, out_seq = seq[:i], seq[i]
-# 				# pad input sequence
-# 				in_seq = pad_sequences([in_seq], maxlen=max_length)[0]
-# 				# encode output sequence
-# 				out_seq = to_categorical([out_seq], num_classes=vocab_size)[0]
-# 				# store
-# 				X1.append(photos[key][0])
-# 				X2.append(in_seq)
-# 				y.append(out_seq)
-# 	return array(X1), array(X2), array(y)
 
 def create_sequences(tokenizer, max_length, desc_list, photo):
 	X1, X2, y = list(), list(), list()
@@ -436,18 +409,6 @@ def train(vocab_size, training_data_descriptions, train_features, tokenizer, max
 	clean_old_model_checkpoints()
 	# define the model
 	model = define_model(vocab_size, max_length)
-
-	# train the model, run epochs manually and save after each epoch
-	# epochs = 20
-	# steps = len(training_data_descriptions)
-	# for i in range(epochs):
-	# 	print('Running epoch %d' %i)
-	# 	# create the data generator
-	# 	generator = data_generator(training_data_descriptions, train_features, tokenizer, max_length)
-	# 	# fit for one epoch
-	# 	model.fit_generator(generator, epochs=1, steps_per_epoch=steps, verbose=1)
-	# 	# save model
-	# 	model.save('model_' + str(i) + '.h5')
 
 
 def evaluate(model, test_data_descriptions, test_features, tokenizer, max_length):

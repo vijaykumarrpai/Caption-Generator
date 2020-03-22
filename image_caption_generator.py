@@ -85,7 +85,6 @@ class ImageCaptionGenerator(object):
 	# extract a feature for a single photo
 	def extract_feature(self, filename, model):
 		# load the photo
-		# target_size: VGG16/VGG19 - (224,224) / InceptionV3 - (299, 299)
 		image = load_img(filename, target_size=(224, 224))
 		# convert the image pixels to a numpy array
 		image = img_to_array(image)
@@ -225,30 +224,6 @@ class ImageCaptionGenerator(object):
 		tokenizer.fit_on_texts(lines)
 		return tokenizer
 
-	# create sequences of images, input sequences and output words for an image
-	# NOTE: This is memory ineffienct. Rather progressively load batch of images
-	# def create_sequences(tokenizer, max_length, descriptions, photos):
-	# 	X1, X2, y = list(), list(), list()
-	# 	# walk through each image identifier
-	# 	import ipdb; ipdb.set_trace()
-	# 	for key, desc_list in descriptions.items():
-	# 		# walk through each description for the image
-	# 		for desc in desc_list:
-	# 			# encode the sequence
-	# 			seq = tokenizer.texts_to_sequences([desc])[0]
-	# 			# split one sequence into multiple X,y pairs
-	# 			for i in range(1, len(seq)):
-	# 				# split into input and output pair
-	# 				in_seq, out_seq = seq[:i], seq[i]
-	# 				# pad input sequence
-	# 				in_seq = pad_sequences([in_seq], maxlen=max_length)[0]
-	# 				# encode output sequence
-	# 				out_seq = to_categorical([out_seq], num_classes=vocab_size)[0]
-	# 				# store
-	# 				X1.append(photos[key][0])
-	# 				X2.append(in_seq)
-	# 				y.append(out_seq)
-	# 	return array(X1), array(X2), array(y)
 
 	def create_sequences(self, tokenizer, max_length, desc_list, photo):
 		X1, X2, y = list(), list(), list()
@@ -428,9 +403,6 @@ class ImageCaptionGenerator(object):
 		return max_length
 
 	def load_pretrained_model(self, filename):
-		# Clear the session before loading the model
-		# Solution to an error when try to load the model multiple times when captioning multiple images
-		# Reference: https://stackoverflow.com/questions/40785224/tensorflow-cannot-interpret-feed-dict-key-as-tensor
 		keras_backend.clear_session()
 		print('Loading latest model - %s' % filename)
 		return load_model(filename)
@@ -497,17 +469,7 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--op', default='evaluate')
 
-	# All the preparation
 	imgcptgen = ImageCaptionGenerator()
-	# prepare_image_data()
-	# prepare_text_data()
-	# training_features, training_desc = prepare_training_data()
-	# test_data_features, test_data_descriptions = load_test_data()
-	# tokenizer = prepare_tokenizer(training_desc)
-	# vocab_size = summarize_vocab(tokenizer)
-	# max_length = max_length_desc(training_desc)
-	# pretrained_model = load_pretrained_model('model_99.h5')
-
 
 	args = parser.parse_args()
 
@@ -521,6 +483,6 @@ if __name__ == '__main__':
 		imgcptgen.evaluate(pretrained_model, test_data_descriptions, test_data_features, tokenizer, max_length)
 	elif args.op == 'test':
 		print('ALL SET FOR TESTING ...')
-		test(pretrained_model, tokenizer, max_length)
+		imgcptgen.test(pretrained_model, tokenizer, max_length)
 	else:
 		raise Exception('Choose valid operation: \'train\', \'evaluate\' or \'test\'')

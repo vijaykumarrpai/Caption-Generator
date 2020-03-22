@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from werkzeug.utils import secure_filename
 
 
-UPLOAD_FOLDER = os.path.join('static', 'uploaded_images')
+UPLOAD_FOLDER = os.path.join('D:\\', 'Study', 'Dataset', 'Flickr8k_Dataset', 'Flicker8k_Dataset')
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 app = Flask(__name__)
@@ -18,13 +18,10 @@ def allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
@@ -41,4 +38,8 @@ def get_caption(filename):
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     model, tokenizer, max_length = imgcptgen.testing_params()
     caption = imgcptgen.test(model, tokenizer, max_length, full_filename)
-    return render_template("caption.html", captioned_image = 'uploaded_images/' + filename, caption = caption)
+    return render_template("caption.html", captioned_image = 'Flicker8k_Dataset/' + filename, caption = caption)
+
+if __name__ == '__main__':
+    from werkzeug.serving import run_simple
+    run_simple("localhost", 5000, app)
