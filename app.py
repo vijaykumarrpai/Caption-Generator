@@ -41,5 +41,5 @@ def get_caption(filename):
     return render_template("caption.html", captioned_image = 'Flicker8k_Dataset/' + filename, caption = caption)
 
 if __name__ == '__main__':
-    from werkzeug.serving import run_simple
-    run_simple("localhost", 5000, app)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
