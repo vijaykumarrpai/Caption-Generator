@@ -41,4 +41,4 @@ def get_caption(filename):
     return render_template("caption.html", captioned_image = 'Flicker8k_Dataset/' + filename, caption = caption)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port = 8000, debug=True)
