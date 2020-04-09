@@ -1,1 +1,3 @@
-web: gunicorn --bind 36.255.87.142:5000 app:app
+web: gunicorn image_caption_controller:app
+web: gunicorn image_caption_generator:app
+web: gunicorn image_caption_generator_script_version:app
