@@ -40,7 +40,7 @@ def get_caption(filename):
     caption = imgcptgen.test(model, tokenizer, max_length, full_filename)
     return render_template("caption.html", captioned_image = 'Flicker8k_Dataset/' + filename, caption = caption)
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # from werkzeug.serving import run_simple
     # run_simple("localhost", 5000, app)
-    app.run()
+    # app.run()

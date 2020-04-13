@@ -1,3 +1,1 @@
 web: gunicorn image_caption_controller:app
-web: gunicorn image_caption_generator:app
-web: gunicorn image_caption_generator_script_version:app
