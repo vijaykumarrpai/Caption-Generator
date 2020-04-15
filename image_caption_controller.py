@@ -44,3 +44,6 @@ def get_caption(filename):
     # from werkzeug.serving import run_simple
     # run_simple("localhost", 5000, app)
     # app.run()
+
+def show_form():
+    return index.html

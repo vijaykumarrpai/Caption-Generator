@@ -1,1 +1,1 @@
-web: gunicorn image_caption_controller:app
+web: gunicorn -w 4 image_caption_controller:app
