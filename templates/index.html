@@ -4,20 +4,68 @@
 	<title>Caption Generator</title>
 	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
 <style>
-		.heading {
-			font-style: italic;
-            font-family: Verdana;
-        }
+		.header {
+			padding: 60px;
+  			text-align: center;
+  			background: #ADD8E6;
+  			color: white;
+  			font-size: 30px;
+  		}
         .info {
             font-style: italic;
             font-family: Verdana;
         }
+        .custom-file-input::-webkit-file-upload-button {
+        	visibility: hidden;
+        }
+		.custom-file-input::before {
+		  	content: 'Select any image';
+		  	display: inline-block;
+		  	background-color: #ADD8E6;
+		  	border: 1px solid #999;
+		  	border-radius: 3px;
+		  	padding: 5px 8px;
+		  	outline: none;
+		  	white-space: nowrap;
+		  	-webkit-user-select: none;
+		  	cursor: pointer;
+		  	text-shadow: 1px 1px #fff;
+		  	font-weight: 700;
+		  	font-size: 10pt;
+		  	position: fixed;
+		  	left: 550px;
+		  }
+		.custom-file-input:hover::before {
+  			border-color: black;
+  		}
+		.custom-file-input:active::before {
+			background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+		}
+		input[type="submit"] {
+    		border-radius: 3px;
+    		background: #ADD8E6;
+    		border: 1px solid #999;
+    		cursor: default;
+    		font-size: 10pt;
+    		font-weight: 700;
+    		padding: 5px 8px;
+    	}
+
+		input[type="submit"]:hover {
+		    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+		    background: #f8f8f8;
+		    border: 1px solid #c6c6c6;
+		    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+		    color: #222;
+		}
 </style>
 </head>
 <div align="center">
 <form method=post enctype=multipart/form-data>
-	<body bgcolor="LightGray" id="body">
-		<h1 class="heading">CAPTION GENERATOR</h1>
+	<body bgcolor="LightGoldenRodYellow" id="body">
+		<div class="header">
+			<h1>CAPTION GENERATOR</h1>
+		</div>
 		<br>
 		<br>
 		<br>
@@ -29,8 +77,8 @@
 			<tr>
 				<!-- <td><input type="file" name="fileToUpload" id="fileToUpload"></td></div>
 				<td><button onclick="showCaption()">Submit</button></td> -->
-				<td><input type="file" name="file"></td></div>
-				<td><input type="submit" value="Upload"></td>
+				<td><input type="file" name="file" class="custom-file-input" required></td></div>
+				<td><input type="submit" value="Upload" class="custom-file-upload"></td>
 			</tr>
 		</table>
 		<br>
