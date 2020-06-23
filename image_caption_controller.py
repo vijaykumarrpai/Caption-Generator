@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from werkzeug.utils import secure_filename
 
 
-UPLOAD_FOLDER = os.path.join('https://captiongeneratordataset.s3.ap-south-1.amazonaws.com/static/Flicker8k_Dataset/')
+UPLOAD_FOLDER = os.path.join('D://', 'Study/', 'Dataset/', 'Flickr8k_Dataset/', 'Flicker8k_Dataset/')
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 app = Flask(__name__)
